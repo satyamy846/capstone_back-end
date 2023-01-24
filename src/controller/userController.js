@@ -10,7 +10,7 @@ export const userController = {
             // console.log(req.body);
              //showing response to browser
             res.status(200).json({
-                sucess: "true",
+                success: "true",
                 data: data,
             })
         }
@@ -27,6 +27,16 @@ export const userController = {
         catch(err){
             next(new CustomError(err.message,500,"unable to fetch"))
         }
-    }
+    },
 
+    //creating a session( it is just creating a session in passport.js )
+    async createSession(req,res,next){
+        try{
+            res.render('/');
+        }
+        catch(err){
+            next(new CustomError(err.message,500,"Unable to create session"))
+        }
+    },
+    
 }

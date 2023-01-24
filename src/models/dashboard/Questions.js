@@ -3,25 +3,29 @@ import mongoose from "mongoose";
 const schema = new mongoose.Schema({
     qid:{
         type:String,
-        required:true,
     },
     Content:{
         type:String
     },
     Textanswer:{
         type:String,
+        required:true
     },
     Option1:{
-        type:String
+        type:String,
+        required:true
     },
     Option2:{
-        type:String
+        type:String,
+        required:true
     },
     Option3:{
-        type:String
+        type:String,
+        required:true
     },
     Option4:{
-        type:String
+        type:String,
+        required:true
     },
 
 });

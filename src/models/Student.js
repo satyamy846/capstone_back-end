@@ -21,9 +21,6 @@ const schema=new mongoose.Schema({
     contact:{
         type:Number
     },
-    token:{
-        type:String,
-    }
 
 });
 //exporting the model

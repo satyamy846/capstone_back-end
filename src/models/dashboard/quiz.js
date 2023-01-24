@@ -2,10 +2,12 @@ import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
     active:{
-        type:Boolean
+        type:Boolean,
+        default:true
     },
     title:{
-        type:String
+        type:String,
+        
     },
     description:{
         type:String
@@ -14,8 +16,8 @@ const schema = new mongoose.Schema({
         type:String
     },
     no_of_questions:{
-        type:String
+        type:String,
     }
 });
 
-export default quizmodel = new mongoose.model("quiz",schema);
+export const quizmodel = new mongoose.model("quiz",schema);

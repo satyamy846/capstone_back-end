@@ -2,9 +2,10 @@ import express from 'express';
 // import { newmodel } from '../model/Student.js';
 // import CustomError from '../utils/errorHandler.js';
 import { userController } from '../controller/userController.js';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 
 const router = express.Router();
+
 
 // userController is a object which is used to do operations on local db like fetching the data, posting, updating or deleting
 router.post('/student',userController.userPost)
