@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import isEmail from '../node_modules/validator/lib/isEmail.js'
-
-const schema = new mongoose.Schema({
+// import {quizmodel} from './dashboard/quiz'
+//creating the schema
+const schema=new mongoose.Schema({
     firstname:{
         type:String,
         required:[true,"First name is required!"]
@@ -28,6 +29,14 @@ const schema = new mongoose.Schema({
     token:{
         type:String
     }
+    // quiz:[{
+    //     type:mongoose.Types.ObjectId,
+    //     ref:'quiz' // referencing quiz collection with user collection
+    // }]
+},
+{
+    timestamps:true
 });
+//exporting the model
+export const usermodel = new mongoose.model('user',schema);
 
-export const teachermodel = new mongoose.model('teacher',schema);

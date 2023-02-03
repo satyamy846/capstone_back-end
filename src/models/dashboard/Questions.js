@@ -1,32 +1,22 @@
 import mongoose from "mongoose";
 
 const schema = new mongoose.Schema({
-    qid:{
-        type:String,
+    content:{
+        type: String, 
+        required: true
     },
-    Content:{
+    
+    options:{
+        type  :Array,
+        default:[]
+    },
+    answer: {
+        type: String,
+        required: true
+    },
+    title:{
         type:String
-    },
-    Textanswer:{
-        type:String,
-        required:true
-    },
-    Option1:{
-        type:String,
-        required:true
-    },
-    Option2:{
-        type:String,
-        required:true
-    },
-    Option3:{
-        type:String,
-        required:true
-    },
-    Option4:{
-        type:String,
-        required:true
-    },
+    }
 
 });
 

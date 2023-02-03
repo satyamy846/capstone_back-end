@@ -1,20 +1,21 @@
 import express from 'express';
 import {connection} from './config/connectdb.js'; // we are doing connection braces coz we exported the content as a constant
-import Userrouter from './router/UserRouter.js';
-import teacherRouter from './router/TeacherRouter.js';
+
 import bodyParser from 'body-parser';
+import cors from 'cors'; //to handle the cross origin policy like your server is running on 5000 and your front is running on 5173 so it resolves it
 
 //importing routers to give path to all the routes
-import CatagoryRouter from './router/dashboard/CatagoryRouter.js'
-import QuizRouter from './router/dashboard/QuizRouter.js';
-import questionsRouter from './router/dashboard/questionsRouter.js';
-
+import Userrouter from './router/UserRouter.js';
+import teacherRouter from './router/TeacherRouter.js';
+import quizRouter from './router/quizRouter.js';
+import questionRouter from './router/questionRouter.js';
 
 //used for session cookie
-// import session from 'express-session';
-// import passport from 'passport';
-// import passportLocal from './config/passport-local-storage';
-// import MongoStore from 'connect-mongo';
+import session from 'express-session';
+import passport from 'passport';
+// import {passportLocal} from './config/passport-local-storage.js'
+import MongoStore from 'connect-mongo';
+
 const app = express();
 
 const { API_PORT } = process.env;
@@ -35,39 +36,41 @@ app.use(express.json());
 //allowing path to the all routers
 app.use(Userrouter);
 app.use(teacherRouter);
-app.use(CatagoryRouter);
-app.use(QuizRouter);
-app.use(questionsRouter);
+app.use(quizRouter);
+app.use(questionRouter);
 
 //connecting with database
 connection();
+app.use(cors);
 
-//mongo store is used to store the session cookie in db
-// app.use(session({
-//     name:'examPortal',
-//     //todo this could be change at the time of deplopyment
-//     secret:'Iknowsomething',
-//     saveUninitialized:false,  //when user has not been logged in then do we need to store extra information in session cookie obviously no
-//     resave:false,             // when user info is saved in session cookie do we need to change info again and again?  No that's why we set as false
-//     cookie:{
-//         maxAge:(1000*60*100)
-//     },
-//     store: new MongoStore({
-//         mongooseConnection: connection,
-//         autoRemove: 'disabled'
+
+
+app.use(session({
+    name:'examPortal',
+    //todo this could be change at the time of deplopyment
+    secret:'Iknowsomething',
+    saveUninitialized:false,  //when user has not been logged in then do we need to store extra information in session cookie obviously no
+    resave:false,             // when user info is saved in session cookie do we need to change info again and again?  No that's why we set as false
+    cookie:{
+        maxAge:(1000*60*100)
+    },
+    //mongo store is used to store the session cookie in db
+    store: MongoStore.create({
+        mongoUrl:'mongodb://127.0.0.1:27017/examportal',   
+        autoRemove: 'disabled'
       
-//         },
-//         function(err){
-//             console.log(err || 'connect-mongo setup ok');
-//         }
-//     )
-// }));
+        },
+        function(err){
+            console.log(err || 'connect-mongo setup ok');
+        }
+    )
+}));
 
-// app.use(passport.initialize());
-// app.use(passport.session);    //passport also helps in maintaining the session
+app.use(passport.initialize);
+app.use(passport.session);    //passport also helps in maintaining the session
 
 //user will be authenticated every time
-// app.use(passport.setAuthenticatedUser);
+// app.use(passport.checkAuthentication);
 
 // app.use('/',require('./router'));
 

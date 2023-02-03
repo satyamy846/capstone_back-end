@@ -1,23 +1,25 @@
 import mongoose from 'mongoose';
-
+// import { usermodel } from '../User';
 const schema = new mongoose.Schema({
-    active:{
-        type:Boolean,
-        default:true
-    },
     title:{
         type:String,
+        unique:true
         
     },
     description:{
         type:String
     },
-    maxmarks:{
-        type:String
-    },
-    no_of_questions:{
-        type:String,
-    }
-});
+    // user:[{
+    //     type: mongoose.Types.ObjectId,
+    //     ref:'user'  // referencing to user model
+    // }],
+    // email:{
+    //     type:String
+    // }
+},{
+    timestamps:true
+}); 
+
+
 
 export const quizmodel = new mongoose.model("quiz",schema);

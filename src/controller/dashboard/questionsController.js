@@ -26,9 +26,16 @@ export const questionsController = {
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
-    async getQuestions(req,res,next){
+    async getAllQuestions(req,res,next){
+        // const details = req.query
+        // console.log(details);
         try{
+            // const data = await questionmodel.find({ title:details.title});
             const data = await questionmodel.find({});
+            // data.forEach((item)=>{
+            //     console.log(item.title);
+            // })
+            // console.log(data.title);
             res.status(200).json({
                 success:"true",
                 data:data

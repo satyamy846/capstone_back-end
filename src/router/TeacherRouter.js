@@ -3,10 +3,10 @@ import {teachermodel} from '../models/Teacher.js';
 import {teacherController} from '../controller/teacherController.js';
 const router = express.Router();
 
-router.post('/teacher',teacherController.teacherpost);
+router.post('/teacher',teacherController.signup);
 
 
-router.get('/teacher',teacherController.teacherfetch);
+router.post('/teacher/login',teacherController.login);
 
 export default router;
 
