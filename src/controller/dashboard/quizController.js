@@ -7,13 +7,11 @@ export const quizController = {
     //creating the quiz
     async addQuiz(req,res,next){
         try{
-            const data = await quizmodel.create({
-                title:req.body.title,
-                description:req.body.description
-            });
-            // const quizdetails = data.save();
+            const data = await quizmodel.create(req.body);
+            
             console.log(data);
-            res.send(data)
+            return res.status(200).json({data})
+            
         }
         catch(err){
             next(new CustomError(err.message,500,"Internal server error"));
@@ -21,15 +19,17 @@ export const quizController = {
     },
     //updating the quiz is only allowed by the faculty(teacher)
     async updateQuiz(req,res,next){
+        const id = req.params.id;
+        const {title,description} = req.body; //these data we got when user enters the info
+        const newResult = {
+            title:title, //coming from the request body
+            description:description
+        }
         try{
-            const uni = req.params._id;
-            const pack = req.body._id;
-            console.log(pack);
-            console.log(uni);
-            const data = await quizmodel.findOneAndUpdate({uni},{$set:{title:req.body.title, description:req.body.description}},{new:true});
+            await quizmodel.findOneAndUpdate(id,newResult,{new:true}); //new:true will update in db and returns the updated object
             res.status(200).json({
                 success:"true",
-                data:data
+                updatedRecord:newResult
             });
         }
         catch(err){
@@ -50,24 +50,15 @@ export const quizController = {
         }
     },
     async deleteQuiz(req,res,next){
+        const id = req.params.id;
         try{
-            await quizmodel.drop();
-            
+            const record = await quizmodel.findByIdAndRemove(id);
+            res.status(202).json({ //status 202 means your request has been accepted
+                deletedrecord:record
+            })
         }
         catch(err){
             next(new CustomError(err.message,400,"Unable to delete"));
         }
     },
-    async getAllquestions(req,res,next){
-        try{
-            const title = req.query;
-            
-            const data = await questionmodel.find({title:"programming"})
-            res.send(data);
-            console.log(data);
-        }
-        catch(err){
-            next(new CustomError(err.message,500,"unable to get"))
-        }
-    }
 }

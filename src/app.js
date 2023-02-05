@@ -3,23 +3,19 @@ import {connection} from './config/connectdb.js'; // we are doing connection bra
 
 import bodyParser from 'body-parser';
 import cors from 'cors'; //to handle the cross origin policy like your server is running on 5000 and your front is running on 5173 so it resolves it
-
+// import {auth} from './middleware/auth.js';
 //importing routers to give path to all the routes
 import Userrouter from './router/UserRouter.js';
 import teacherRouter from './router/TeacherRouter.js';
 import quizRouter from './router/quizRouter.js';
 import questionRouter from './router/questionRouter.js';
 
-//used for session cookie
-import session from 'express-session';
-import passport from 'passport';
-// import {passportLocal} from './config/passport-local-storage.js'
-import MongoStore from 'connect-mongo';
 
 const app = express();
 
 const { API_PORT } = process.env;
 const port = process.env.PORT || API_PORT;
+app.use(cors({origin:"*"}));
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -41,40 +37,19 @@ app.use(questionRouter);
 
 //connecting with database
 connection();
-app.use(cors);
+
+// app.use(auth);
 
 
 
-app.use(session({
-    name:'examPortal',
-    //todo this could be change at the time of deplopyment
-    secret:'Iknowsomething',
-    saveUninitialized:false,  //when user has not been logged in then do we need to store extra information in session cookie obviously no
-    resave:false,             // when user info is saved in session cookie do we need to change info again and again?  No that's why we set as false
-    cookie:{
-        maxAge:(1000*60*100)
-    },
-    //mongo store is used to store the session cookie in db
-    store: MongoStore.create({
-        mongoUrl:'mongodb://127.0.0.1:27017/examportal',   
-        autoRemove: 'disabled'
-      
-        },
-        function(err){
-            console.log(err || 'connect-mongo setup ok');
-        }
-    )
-}));
-
-app.use(passport.initialize);
-app.use(passport.session);    //passport also helps in maintaining the session
-
-//user will be authenticated every time
-// app.use(passport.checkAuthentication);
+app.use((req,res,next)=>{
+    console.log("HTTP Method ->" + req.method + "URL" + req.url);
+    next();
+})
 
 // app.use('/',require('./router'));
 
 //creating a server
 app.listen(5000,function(){
-    console.log(`connected successfully http://localhost:5000/`);
+    console.log(`server running http://localhost:5000/`);
 });

@@ -3,19 +3,19 @@ import mongoose from 'mongoose';
 const schema = new mongoose.Schema({
     title:{
         type:String,
-        unique:true
+        unique:true,
+        required:[true,"Title is required"],
         
     },
     description:{
         type:String
     },
-    // user:[{
-    //     type: mongoose.Types.ObjectId,
-    //     ref:'user'  // referencing to user model
-    // }],
-    // email:{
-    //     type:String
-    // }
+    
+    // userId:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref:'user',  // referencing to user model,
+    // },
+
 },{
     timestamps:true
 }); 

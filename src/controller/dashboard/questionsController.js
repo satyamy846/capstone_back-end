@@ -4,7 +4,14 @@ import CustomError from "../../utils/errorHandler.js";
 export const questionsController = {
     async addQuestions(req,res,next){
         try{
-            const data = await questionmodel.create(req.body);
+            const data = await questionmodel.create({
+                content:req.body.content,
+                option1:req.body.option1,
+                option2:req.body.option2,
+                option3:req.body.option3,
+                option4:req.body.option4,
+                answer:req.body.answer
+            });
             res.status(200).json({
                 success:"true",
                 data:data
@@ -15,8 +22,17 @@ export const questionsController = {
         }
     },
     async updateQuestions(req,res,next){
+        const id = req.params.id;
+        const {content,option1,option2,option3,option4,answer} = req.body;
         try{
-            const data = await questionmodel.updateOne(req.body);
+            const data = await questionmodel.findOneAndUpdate({
+                content:content,
+                option1:option1,
+                option2:option2,
+                option3:option3,
+                option4:option4,
+                answer:answer
+            });
             res.status(200).json({
                 success:"true",
                 data:data
@@ -26,19 +42,14 @@ export const questionsController = {
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
-    async getAllQuestions(req,res,next){
-        // const details = req.query
-        // console.log(details);
+    async getQuestionsByTitle(req,res,next){
+        const title = req.query.title;
         try{
-            // const data = await questionmodel.find({ title:details.title});
-            const data = await questionmodel.find({});
-            // data.forEach((item)=>{
-            //     console.log(item.title);
-            // })
-            // console.log(data.title);
+            const details = await questionmodel.find({title});
+            console.log(details)
             res.status(200).json({
                 success:"true",
-                data:data
+                data:details
             });
         }
         catch(err){

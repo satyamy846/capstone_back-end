@@ -66,6 +66,16 @@ export const userController = {
             next(new CustomError(err.message,500,"unable to create userpost"))
         }
     },
+    async logout(req, res) {
+        try{
+            res.clearCookie("token");
+            res.removeHeader("auth-token");
+            res.send("logged out");
+        }
+        catch(err){
+            console.log(err);
+        }
+      },
     // async dashboard(req,res,next){
     //     try{
     //         return res.redirect('/dashboard')
