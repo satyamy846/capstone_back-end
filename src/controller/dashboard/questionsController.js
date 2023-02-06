@@ -57,11 +57,15 @@ export const questionsController = {
         }
     },
     async deleteQuestions(req,res,next){
+        const id = req.params.id;
         try{
-             await questionmodel.drop();
+            const record = await questionmodel.findByIdAndRemove(id);
+            res.status(202).json({ //status 202 means your request has been accepted
+                deletedrecord:record
+            })
         }
         catch(err){
-            next(new CustomError(err.message,400,"Unable to delete"));
+            next(new CustomError(err.message,500,"Unable to delete"));
         }
     }
 }

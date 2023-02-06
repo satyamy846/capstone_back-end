@@ -1,10 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
 
 const schema = new mongoose.Schema({
-    // Quizid:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref:'quiz'  //refencing to quiz
-    // },
     title:{
         type:String
     },
@@ -29,11 +25,6 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // userId:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref:'user' //referencing to user schema
-    // }
-
 });
 
 export const questionmodel = new mongoose.model("Question",schema);

@@ -74,48 +74,15 @@ export const teacherController = {
             next(new CustomError(err, 500, "Unable to Login In"))
         }
     },
-
-    async createQuiz(req, res, next) {
-        try {
-            currowner: req.userid
-            currentEmail: req.email
-            var quiz = new quizmodel({
-                quizname: req.body.quizname,
-                quizdescription: req.body.quizdescription,
-                upload: req.body.upload,
-                owner: currowner,
-                owneremail: currentEmail
-            })
-
-            quiz.save((error, qz) => {
-                if (error) {
-                    console.log(error);
-                    req.json({ msg: "failed to create" })
-                }
-                else {
-                    res.status(200).json("Quiz has been added");
-                }
-            })
-
-        }
-        catch (err) {
-            next(new CustomError(err.message(500, "Unable to create quiz retry!")))
-        }
-    },
-
-    async getUplodedquiz(req, res, next) {
-        try {
-            quizmodel.find({ owner: req.userid, upload: false }, (err, qz) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    res.status(200).json({ quiz: qz })
-                }
+    async getTeacherdetails(req,res,next){
+        try{
+            const details = await teachermodel.find({});
+            res.status(200).json({
+                data:details
             })
         }
-        catch (err) {
-
+        catch(err){
+            next(new CustomError(err.message,500,"Unable to get teacher details"))
         }
     }
 

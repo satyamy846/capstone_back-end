@@ -19,17 +19,19 @@ export const quizController = {
     },
     //updating the quiz is only allowed by the faculty(teacher)
     async updateQuiz(req,res,next){
-        const id = req.params.id;
-        const {title,description} = req.body; //these data we got when user enters the info
+        // const id = req.params.id;
+        const language = req.query.title;
+        const{newtitle,newdescription} = req.body; //these data we got when user enters the info
         const newResult = {
-            title:title, //coming from the request body
-            description:description
+            title:newtitle, //coming from the request body
+            description:newdescription
         }
         try{
-            await quizmodel.findOneAndUpdate(id,newResult,{new:true}); //new:true will update in db and returns the updated object
+            const data = await quizmodel.findOneAndUpdate({language},newResult,{new:true});
+            console.log(data); //new:true will update in db and returns the updated object
             res.status(200).json({
                 success:"true",
-                updatedRecord:newResult
+                updatedRecord:data
             });
         }
         catch(err){
