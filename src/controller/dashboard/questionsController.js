@@ -4,14 +4,7 @@ import CustomError from "../../utils/errorHandler.js";
 export const questionsController = {
     async addQuestions(req,res,next){
         try{
-            const data = await questionmodel.create({
-                content:req.body.content,
-                option1:req.body.option1,
-                option2:req.body.option2,
-                option3:req.body.option3,
-                option4:req.body.option4,
-                answer:req.body.answer
-            });
+            const data = await questionmodel.create(req.body);
             res.status(200).json({
                 success:"true",
                 data:data

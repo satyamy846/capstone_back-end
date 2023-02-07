@@ -52,12 +52,20 @@ export const quizController = {
         }
     },
     async deleteQuiz(req,res,next){
-        const id = req.params.id;
+        const title = req.query.title;
         try{
-            const record = await quizmodel.findByIdAndRemove(id);
-            res.status(202).json({ //status 202 means your request has been accepted
+            // if(id.match(/^[0-9a-fA-F]{24}$/)){
+            //     const record = await quizmodel.findByIdAndRemove(id);
+            //     res.status(202).json({ //status 202 means your request has been accepted
+            //         deletedrecord:record
+            //     })
+            // }
+            const record = await quizmodel.deleteOne({title});
+            res.status(202).json({
                 deletedrecord:record
-            })
+            });   
+            
+            
         }
         catch(err){
             next(new CustomError(err.message,400,"Unable to delete"));
