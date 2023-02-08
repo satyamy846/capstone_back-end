@@ -3,7 +3,7 @@ import { teachermodel } from '../models/Teacher.js';
 import { quizmodel } from "../models/dashboard/quiz.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-const SECRET_KEY = "NOTESAPI";
+
 
 
 export const teacherController = {
@@ -30,7 +30,7 @@ export const teacherController = {
             });
 
             //generate the token
-            const token = await jwt.sign({ email: result.email, id: req._id }, SECRET_KEY)  //sign(payload,secretkey) payload-> used to store that if it is a valid user or not| secretkey
+            const token = await jwt.sign({ email: result.email, id: req._id }, process.env.SECRET_KEY)  //sign(payload,secretkey) payload-> used to store that if it is a valid user or not| secretkey
             res.status(201).json({ user: result, token: token })
 
         }
@@ -60,7 +60,7 @@ export const teacherController = {
                     return res.status(400).json({ message: "Invalid Credential" })
                 }
                 //password matched then generate the token
-                const token = await jwt.sign({ email: existinguser.email, id: existinguser[0]._id }, SECRET_KEY);
+                const token = await jwt.sign({ email: existinguser.email, id: existinguser[0]._id }, process.env.SECRET_KEY);
                 res.status(200).json({
                     teacher: existinguser,
                     token

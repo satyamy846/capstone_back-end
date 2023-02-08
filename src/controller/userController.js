@@ -5,7 +5,7 @@ import {quizmodel} from '../models/dashboard/quiz.js';
 import { questionmodel } from '../models/dashboard/Questions.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-const SECRET_KEY = "NOTESAPI";
+
 
 export const userController = {
     async signup(req,res,next){
@@ -30,7 +30,7 @@ export const userController = {
             });
             
             //generate the token
-            const token = await jwt.sign({email: result.email ,id: req._id},SECRET_KEY)  //sign(payload,secretkey) payload-> used to store that if it is a valid user or not| secretkey
+            const token = await jwt.sign({email: result.email ,id: req._id},process.env.SECRET_KEY)  //sign(payload,secretkey) payload-> used to store that if it is a valid user or not| secretkey
             res.status(201).json({user:result,token:token})
         }
         catch(err){
@@ -57,7 +57,7 @@ export const userController = {
             }
 
             //password matches then generate the token
-            const token = await jwt.sign({email: existinguser.email ,id: existinguser._id},SECRET_KEY);
+            const token = await jwt.sign({email: existinguser.email ,id: existinguser._id},process.env.SECRET_KEY);
             res.status(200).json({
                 user:existinguser,token:token
             })

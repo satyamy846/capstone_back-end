@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-const SECRET_KEY = "NOTESAPI";
 export const auth = {
     async authenticate(req,res,next){
         try{
@@ -8,7 +7,7 @@ export const auth = {
         if(token){
             token = token.split(' ')[1]; //first parameter we right bearer so we extract the token by using index
             //verify the existing token
-            let user = jwt.verify(token, SECRET_KEY);
+            let user = jwt.verify(token, process.env.SECRET_KEY);
             req.userId = user.id; //we will use this id to fetch the details
         }
         
