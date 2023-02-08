@@ -26,9 +26,9 @@ const schema=new mongoose.Schema({
     contact:{
         type:String
     },
-    token:{
-        type:String
-    }
+    // token:{
+    //     type:String
+    // }
     // quiz:[{
     //     type:mongoose.Types.ObjectId,
     //     ref:'quiz' // referencing quiz collection with user collection

@@ -15,16 +15,19 @@ export const questionsController = {
         }
     },
     async updateQuestions(req,res,next){
-        const id = req.params.id;
+        const title = req.params.title;
         const {content,option1,option2,option3,option4,answer} = req.body;
         try{
-            const data = await questionmodel.findOneAndUpdate({
+            const newdetails = {
                 content:content,
                 option1:option1,
                 option2:option2,
                 option3:option3,
                 option4:option4,
                 answer:answer
+            }
+            const data = await questionmodel.findOneAndUpdate(title,newdetails,{
+                new:true
             });
             res.status(200).json({
                 success:"true",
@@ -35,7 +38,7 @@ export const questionsController = {
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
-    async getQuestionsByTitle(req,res,next){
+    async getQuestionsBytitle(req,res,next){
         const title = req.query.title;
         try{
             const details = await questionmodel.find({title});

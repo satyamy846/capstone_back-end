@@ -1,3 +1,5 @@
+
+import * as dotenv from 'dotenv';
 import express from 'express';
 import {connection} from './config/connectdb.js'; // we are doing connection braces coz we exported the content as a constant
 
@@ -10,11 +12,11 @@ import teacherRouter from './router/TeacherRouter.js';
 import quizRouter from './router/quizRouter.js';
 import questionRouter from './router/questionRouter.js';
 
-
+// const dotenv1 = dotenv;
 const app = express();
-
-const { API_PORT } = process.env;
-const port = process.env.PORT || API_PORT;
+dotenv.config();
+// const { API_PORT } = process.env;
+const port = process.env.PORT || 5000;
 app.use(cors({origin:"*"}));
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -50,6 +52,6 @@ app.use((req,res,next)=>{
 // app.use('/',require('./router'));
 
 //creating a server
-app.listen(5000,function(){
+app.listen(port,function(){
     console.log(`server running http://localhost:5000/`);
 });

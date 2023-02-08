@@ -2,7 +2,9 @@ import mongoose, { Mongoose } from "mongoose";
 
 const schema = new mongoose.Schema({
     title:{
-        type:String
+        type:String,
+        unique:true,
+        required:[true,"Title is required"],
     },
     content:{
         type: String, 
