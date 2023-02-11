@@ -25,11 +25,8 @@ const schema = new mongoose.Schema({
     contact:{
         type:String
     },
-    Isteacher:{
-        type:Boolean
-    },
-    Istudent:{
-        type:Boolean
+    role:{
+        type:String
     }
 });
 
