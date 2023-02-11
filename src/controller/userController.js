@@ -66,93 +66,27 @@ export const userController = {
             next(new CustomError(err.message,500,"unable to create userpost"))
         }
     },
-    async logout(req, res) {
+    // async logout(req, res) {
+    //     try{
+    //         res.clearCookie("token");
+    //         res.removeHeader("auth-token");
+    //         res.send("logged out");
+    //     }
+    //     catch(err){
+    //         console.log(err);
+    //     }
+    //   },
+    async getuser(req,res,next){
         try{
-            res.clearCookie("token");
-            res.removeHeader("auth-token");
-            res.send("logged out");
+            const data = await usermodel.find({});
+            res.status(200).json({
+                data:data,
+            })
         }
         catch(err){
+            // next(new CustomError(err.message,500,"Unable to fetch user details"))
             console.log(err);
         }
-      },
-    // async dashboard(req,res,next){
-    //     try{
-    //         return res.redirect('/dashboard')
-    //     }
-    //     catch(err){
-    //         next(new CustomError(err.message,500,"unable to fetch"))
-    //     }
-    // },
-
-    //creating a session( it is just creating a session in passport.js )
-    // async createSession(req,res,next){
-    //     try{
-    //         res.render('/');
-    //     }
-    //     catch(err){
-    //         next(new CustomError(err.message,500,"Unable to create session"))
-    //     }
-    // },
-
-    // //destroy sesssion
-    // async destroysession(req,res,next){
-    //     try{
-    //         req.logout();
-    //         return res.redirect('/');
-    //     }
-    //     catch(err){
-    //         next(new CustomError(err.message,400,"error occurs"))
-    //     }
-    // },
-
-
-    async getAllquiz(req,res,next){
-        try{
-            
-            const data = await quizmodel.find({ quizname}, (err, qz) => {
-                if (err) {
-                    console.log(error);
-                    res.json({ msg: "failed to fetch quiz details" });
-                }
-                else {
-                    res.status(200).json({ quiz:qz });
-                }
-            })
-        }
-        catch(err){
-            next(new CustomError(err.message,500,"Unable to fetch all the quiz"))
-        }
-    },
-    // async createquiz(req,res,next){
-    //     try{
-    //         const data = await quizmodel.create({
-    //             title: req.body.title,
-    //             description: req.body.description,
-    //             user: user._id
-                
-    //         })
-    //         console.log(data);
-    //         res.status(200).json({
-    //             success:true,
-    //             data:data
-    //         })
-    //     }
-    //     catch(err){
-    //         next(new CustomError(err.message,500,"Failed to create quiz"));
-    //     }
-    // },
-    async getAllquestions(req,res,next){
-        try{
-            const quizdetails = await questionmodel.find({ quizid:req.params.quizid})
-            res.status(200).json({
-                success:true,
-                quizdetails:quizdetails
-            })
-        }
-        catch(err){
-            next(new CustomError(err.message,500,"Unable to fetch all questions"))
-        }
+        
     }
-    
 }

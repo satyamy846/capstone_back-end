@@ -7,7 +7,8 @@ const router = express.Router();
 router.post('/student',userController.signup);
 
 router.post('/student/login',userController.login);
-router.get('/',userController.logout);
+// router.get('/',userController.logout);
+router.get('/get-user',userController.getuser);
 
 
 // router.get('/quiz',userController.getAllquiz);

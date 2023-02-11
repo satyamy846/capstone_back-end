@@ -25,8 +25,11 @@ const schema = new mongoose.Schema({
     contact:{
         type:String
     },
-    token:{
-        type:String
+    Isteacher:{
+        type:Boolean
+    },
+    Istudent:{
+        type:Boolean
     }
 });
 

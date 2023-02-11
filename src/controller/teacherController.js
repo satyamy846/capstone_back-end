@@ -26,7 +26,9 @@ export const teacherController = {
                 lastname: lastname,
                 email: email,
                 password: hashedpassword,
-                contact: contact
+                contact: contact,
+                Isteacher:true,
+                Isstudent:false
             });
 
             //generate the token
@@ -47,23 +49,22 @@ export const teacherController = {
             const existinguser = await teachermodel.find({ email: email })
 
            
-            console.log(existinguser);
+            // console.log(existinguser);
             if (!existinguser) {
                 return res.status(404).json({ message: "User Not Found" });
             }
             else {
                 //check the password
-                console.log("existing password " + existinguser[0].password);
+                // console.log("existing password " + existinguser[0].password);
                 const matchingpassword = await bcrypt.compare(password, existinguser[0].password);
-                console.log("match password " + matchingpassword);
+                // console.log("match password " + matchingpassword);
                 if (!matchingpassword) {
                     return res.status(400).json({ message: "Invalid Credential" })
                 }
                 //password matched then generate the token
                 const token = await jwt.sign({ email: existinguser.email, id: existinguser[0]._id }, process.env.SECRET_KEY);
                 res.status(200).json({
-                    teacher: existinguser,
-                    token
+                    teacher: existinguser,token:token
                 })
             }
 

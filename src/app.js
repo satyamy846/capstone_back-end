@@ -44,10 +44,10 @@ connection();
 
 
 
-app.use((req,res,next)=>{
-    console.log("HTTP Method ->" + req.method + "URL" + req.url);
-    next();
-})
+// app.use((req,res,next)=>{
+//     console.log("HTTP Method ->" + req.method + "URL" + req.url);
+//     next();
+// })
 
 // app.use('/',require('./router'));
 
