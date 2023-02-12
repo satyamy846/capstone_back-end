@@ -16,7 +16,7 @@ import questionRouter from './router/questionRouter.js';
 const app = express();
 dotenv.config();
 // const { API_PORT } = process.env;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 app.use(cors({origin:"*"}));
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -47,12 +47,11 @@ connection();
 app.get('/',(req,res,next)=>{
     console.log("HTTP Method ->" + req.method + "URL" + req.url);
     res.send("Server is running ");
-    // next();
 })
 
 
 
 //creating a server
 app.listen(port,function(){
-    console.log(`server running http://localhost:5000/`);
+    console.log(`server running http://localhost:${port}`);
 });
