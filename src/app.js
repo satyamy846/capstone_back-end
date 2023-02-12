@@ -44,12 +44,13 @@ connection();
 
 
 
-// app.use((req,res,next)=>{
-//     console.log("HTTP Method ->" + req.method + "URL" + req.url);
-//     next();
-// })
+app.get('/',(req,res,next)=>{
+    console.log("HTTP Method ->" + req.method + "URL" + req.url);
+    res.send("Server is running ");
+    // next();
+})
 
-// app.use('/',require('./router'));
+
 
 //creating a server
 app.listen(port,function(){

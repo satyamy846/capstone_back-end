@@ -25,9 +25,12 @@ const schema = new mongoose.Schema({
     contact:{
         type:String
     },
-    role:{
-        type:String
-    }
+    Isteacher:{
+        type:Boolean
+    },
+},
+{
+    timestamps: true
 });
 
 export const teachermodel = new mongoose.model('teacher',schema);

@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken';
 
 export const userController = {
     async signup(req,res,next){
-        const {firstname,lastname,email,password,contact} = req.body;
+        const {firstname,lastname,email,password,contact,Isstudent} = req.body;
         try{
             
             //checking existing user
@@ -26,7 +26,8 @@ export const userController = {
                 lastname:lastname,
                 email:email,
                 password:hashedpassword,
-                contact:contact
+                contact:contact,
+                Isstudent:Isstudent
             });
             
             //generate the token

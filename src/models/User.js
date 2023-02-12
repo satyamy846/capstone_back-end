@@ -26,10 +26,9 @@ const schema = new mongoose.Schema({
     contact: {
         type: String
     },
-    Isteacher: {
+    Isstudent:{ 
         type: Boolean
-    },
-    Istudent: { type: Boolean }
+    }
 
 },
     {

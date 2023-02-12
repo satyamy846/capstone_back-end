@@ -10,7 +10,7 @@ export const teacherController = {
 
     async signup(req, res, next) {
         //extracting the details of teacher
-        const { firstname, lastname, email, password, contact } = req.body;
+        const { firstname, lastname, email, password, contact,Isteacher } = req.body;
         try {
             //checking existing user
             const existinguser = await teachermodel.findOne({ email: email });
@@ -27,8 +27,7 @@ export const teacherController = {
                 email: email,
                 password: hashedpassword,
                 contact: contact,
-                Isteacher:true,
-                Isstudent:false
+                Isteacher:Isteacher
             });
 
             //generate the token
