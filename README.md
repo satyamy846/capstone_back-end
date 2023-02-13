@@ -5,9 +5,9 @@
 ## Back End repo link - https://github.com/satyamy846/capstone_back-end.git
 
 ### Tech Stack
-#### Front End - VueJs,Vuetify,Bootstrap,HTML,CSS
-#### Back End - NodeJs, ExpressJs(Framework)
-#### Database - MongoDb (hosted On MongoDb Atlas)
+Front End - VueJs,Vuetify,Bootstrap,HTML,CSS
+Back End - NodeJs, ExpressJs(Framework)
+Database - MongoDb (hosted On MongoDb Atlas)
 
 ## Abstract
 1. It helps every students to to keep them consistent and improve their learnings through mock quizzess available in portal
