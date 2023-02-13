@@ -6,7 +6,9 @@
 
 ### Tech Stack
 Front End - VueJs,Vuetify,Bootstrap,HTML,CSS
+
 Back End - NodeJs, ExpressJs(Framework)
+
 Database - MongoDb (hosted On MongoDb Atlas)
 
 ## Abstract
