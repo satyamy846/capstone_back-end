@@ -13,7 +13,7 @@ Database - MongoDb (hosted On MongoDb Atlas)
 
 ## Abstract
 1. It helps every students to to keep them consistent and improve their learnings through mock quizzess available in portal
-2. It allow teacher to perform CRUD operations.
+2. It allows teachers to perform CRUD operations.
 
 ## Features
 1. Unauthorized user cannot access anyone's account.
