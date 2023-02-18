@@ -55,7 +55,7 @@ export const questionsController = {
     async deleteQuestions(req,res,next){
         const title = req.query.title;
         try{
-            const record = await questionmodel.deleteOne(title);
+            const record = await questionmodel.deleteOne({title});
             res.status(202).json({ //status 202 means your request has been accepted
                 deletedrecord:record
             })
