@@ -11,7 +11,6 @@ export const questionsController = {
             });
         }
         catch(err){
-            console.log(err.message);
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
