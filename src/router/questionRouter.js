@@ -8,6 +8,6 @@ const router = express.Router();
 router.post('/addquestions',auth.authenticate,questionsController.addQuestions);
 router.get('/get-questions',auth.authenticate,questionsController.getQuestionsBytitle);
 router.put('/update-questions',auth.authenticate,questionsController.updateQuestions);
-router.delete('/:id',auth.authenticate,questionsController.deleteQuestions);
+router.delete('/delete-questions',auth.authenticate,questionsController.deleteQuestions);
 
 export default router;
