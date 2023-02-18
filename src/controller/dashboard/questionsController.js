@@ -11,11 +11,12 @@ export const questionsController = {
             });
         }
         catch(err){
+            console.log(err.message);
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
     async updateQuestions(req,res,next){
-        const title = req.query.title;
+        const title = req.params.title;
         const {content,option1,option2,option3,option4,answer} = req.body;
         try{
             const newdetails = {
@@ -53,9 +54,9 @@ export const questionsController = {
         }
     },
     async deleteQuestions(req,res,next){
-        const title = req.query.title;
+        const title = req.query.title
         try{
-            const record = await questionmodel.deleteOne({title});
+            const record = await questionmodel.deleteMany({title});
             res.status(202).json({ //status 202 means your request has been accepted
                 deletedrecord:record
             })
