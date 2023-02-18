@@ -12,6 +12,7 @@ export const questionsController = {
         }
         catch(err){
             console.log(err.message);
+            console.log("error in adding questions");
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
