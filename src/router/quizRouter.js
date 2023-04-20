@@ -6,8 +6,10 @@ const router = express.Router();
 
 router.post('/addquiz',auth.authenticate,quizController.addQuiz);
 router.get('/get-quiz',auth.authenticate,quizController.getQuiz);
-// router.put('/update-quiz/:id',auth.authenticate,quizController.updateQuiz);
+
+router.get('/get-quizById/:id',auth.authenticate,quizController.getQuizById);
+
 router.put('/update-quiz/:id',auth.authenticate,quizController.updateQuiz);
-router.delete('/delete-quiz',auth.authenticate,quizController.deleteQuiz);
+router.delete('/delete-quiz/:id',auth.authenticate,quizController.deleteQuiz);
 
 export default router;

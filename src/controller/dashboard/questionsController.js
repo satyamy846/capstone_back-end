@@ -16,7 +16,8 @@ export const questionsController = {
         }
     },
     async updateQuestions(req,res,next){
-        const title = req.params.title;
+        // const title = req.params.title;
+        const questionId = req.params.id;
         const {content,option1,option2,option3,option4,answer} = req.body;
         try{
             const newdetails = {
@@ -27,9 +28,10 @@ export const questionsController = {
                 option4:option4,
                 answer:answer
             }
-            const data = await questionmodel.findOneAndUpdate(title,newdetails,{
+            const data = await questionmodel.findByIdAndUpdate({_id:questionId},newdetails,{
                 new:true
             });
+            console.log(data);
             res.status(200).json({
                 success:"true",
                 data:data
@@ -53,8 +55,20 @@ export const questionsController = {
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
-    async deleteQuestions(req,res,next){
-        const title = req.query.title
+    async deleteQuestionById(req,res,next){
+        const questionid = req.params.id;
+        try{
+            const record = await questionmodel.findByIdAndDelete({_id:questionid});
+            res.status(202).json({ //status 202 means your request has been accepted
+                deletedrecord:record
+            })
+        }
+        catch(err){
+            next(new CustomError(err.message,500,"Unable to delete"));
+        }
+    },
+    async deleteAllQuestions(req,res,next){
+        const title = req.query.title;
         try{
             const record = await questionmodel.deleteMany({title});
             res.status(202).json({ //status 202 means your request has been accepted

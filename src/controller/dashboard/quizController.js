@@ -20,15 +20,17 @@ export const quizController = {
     //updating the quiz is only allowed by the faculty(teacher)
     async updateQuiz(req,res,next){
         // const id = req.params.id;
-        const language = req.query.title;
-        const{newtitle,newdescription} = req.body; //these data we got when user enters the info
+        // const language = req.query.title;
+        const quizId = req.params.id;
+        const{title,description} = req.body; //these data we got when user enters the info
         const newResult = {
-            title:newtitle, //coming from the request body
-            description:newdescription
+            title:title, //coming from the request body
+            description:description
         }
+        // console.log(newResult);
         try{
-            const data = await quizmodel.findOneAndUpdate({language},newResult,{new:true});
-            console.log(data); //new:true will update in db and returns the updated object
+            const data = await quizmodel.findByIdAndUpdate({_id:quizId},newResult);
+            // console.log(data); //new:true will update in db and returns the updated object
             res.status(200).json({
                 success:"true",
                 updatedRecord:data
@@ -51,16 +53,27 @@ export const quizController = {
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
-    async deleteQuiz(req,res,next){
-        const title = req.query.title;
+    async getQuizById(req,res,next){
+        const id = req.params.id;
         try{
-            // if(id.match(/^[0-9a-fA-F]{24}$/)){
-            //     const record = await quizmodel.findByIdAndRemove(id);
-            //     res.status(202).json({ //status 202 means your request has been accepted
-            //         deletedrecord:record
-            //     })
-            // }
-            const record = await quizmodel.deleteOne({title});
+            // const data = await quizmodel.find({_id:req.body.studentId}).populate('user');
+            const data = await quizmodel.findById({_id:id});
+            // console.log(data);
+            res.status(200).json({
+                success:"true",
+                data:data
+            });
+        }
+        catch(err){
+            next(new CustomError(err.message,500,"Internal server error"));
+        }
+    },
+    async deleteQuiz(req,res,next){
+        // const title = req.query.title;
+        const quizId = req.params.id;
+        try{
+            const record = await quizmodel.findByIdAndDelete({_id:quizId});
+            // console.log(record);
             res.status(202).json({
                 deletedrecord:record
             });   

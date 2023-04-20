@@ -48,7 +48,7 @@ connection();
 
 
 app.get('/',(req,res,next)=>{
-    console.log("HTTP Method ->" + req.method + "URL" + req.url);
+    // console.log("HTTP Method ->" + req.method + "URL" + req.url);
     res.send("Server is running ");
 })
 
