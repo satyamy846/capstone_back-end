@@ -1,5 +1,5 @@
 # Exam Portal (onlinequizy)
-## Server hosted link - https://capstoneback-end-production.up.railway.app/
+## Server hosted link - https://capstoneback-end-production-6cb6.up.railway.app/
 
 ## Front End repo link - https://github.com/satyamy846/capstone-front-end.git
 ## Back End repo link - https://github.com/satyamy846/capstone_back-end.git
