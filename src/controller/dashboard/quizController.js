@@ -68,6 +68,7 @@ export const quizController = {
             next(new CustomError(err.message,500,"Internal server error"));
         }
     },
+    
     async deleteQuiz(req,res,next){
         // const title = req.query.title;
         const quizId = req.params.id;

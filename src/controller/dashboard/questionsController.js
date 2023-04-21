@@ -4,7 +4,21 @@ import CustomError from "../../utils/errorHandler.js";
 export const questionsController = {
     async addQuestions(req,res,next){
         try{
-            const data = await questionmodel.create(req.body);
+            const newrecord = {
+                title: req.body.title,
+                content:req.body.content,
+                option1: req.body.option1,
+                option2: req.body.option2,
+                option3: req.body.option3,
+                option4: req.body.option4,
+                answer: req.body.answer,
+            }
+            const data = await questionmodel.create(newrecord);
+            const existingQuestion = await questionmodel.findOne({content:req.body.content});
+            
+            if(existingQuestion.content === newrecord.content ){
+                return res.status(404).send("You cannot add same question");
+            }
             res.status(200).json({
                 success:"true",
                 data:data

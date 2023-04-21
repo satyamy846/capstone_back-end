@@ -77,9 +77,10 @@ export const userController = {
     //         console.log(err);
     //     }
     //   },
-    async getuser(req,res,next){
+    async getuserbyemail(req,res,next){
+        const email = req.query.email;
         try{
-            const data = await usermodel.find({});
+            const data = await usermodel.find({email:email});
             res.status(200).json({
                 data:data,
             })
@@ -89,5 +90,6 @@ export const userController = {
             console.log(err);
         }
         
-    }
+    },
+    
 }
