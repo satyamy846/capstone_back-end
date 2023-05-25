@@ -14,11 +14,11 @@ export const questionsController = {
                 answer: req.body.answer,
             }
             const data = await questionmodel.create(newrecord);
-            const existingQuestion = await questionmodel.findOne({content:req.body.content});
+            // const existingQuestion = await questionmodel.findOne({content:req.body.content});
             
-            if(existingQuestion.content === newrecord.content ){
-                return res.status(404).send("You cannot add same question");
-            }
+            // if(existingQuestion.content === newrecord.content ){
+            //     return res.status(404).send("You cannot add same question");
+            // }
             res.status(200).json({
                 success:"true",
                 data:data
@@ -59,6 +59,21 @@ export const questionsController = {
         const title = req.query.title;
         try{
             const details = await questionmodel.find({title});
+            console.log(details)
+            res.status(200).json({
+                success:"true",
+                data:details
+            });
+        }
+        catch(err){
+            next(new CustomError(err.message,500,"Internal server error"));
+        }
+    },
+    async getQuestionById(req,res,next){
+        const id = req.params.id;
+        try{
+            // console.log(id);
+            const details = await questionmodel.find({_id:id});
             console.log(details)
             res.status(200).json({
                 success:"true",

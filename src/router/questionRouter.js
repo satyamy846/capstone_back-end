@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/addquestions',auth.authenticate,questionsController.addQuestions);
 router.get('/get-questions',auth.authenticate,questionsController.getQuestionsBytitle);
+router.get('/get-questionById/:id',auth.authenticate,questionsController.getQuestionById)
 router.put('/update-questions/:id',auth.authenticate,questionsController.updateQuestions);
 router.delete('/delete-question/:id',auth.authenticate,questionsController.deleteQuestionById);
 router.delete('/delete-questions',auth.authenticate,questionsController.deleteAllQuestions);
