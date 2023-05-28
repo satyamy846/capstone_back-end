@@ -77,6 +77,19 @@ export const userController = {
     //         console.log(err);
     //     }
     //   },
+    async getuserdetails(req,res,next){
+        try{
+            const data = await usermodel.find({});
+            res.status(200).json({message:"Success",data:data});
+
+            if(!data){
+                return res.status(400).json({message:"error"});
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    },
     async getuserbyemail(req,res,next){
         const email = req.query.email;
         try{
